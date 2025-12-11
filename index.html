@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Haifa Neza Tama</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef5 0%, #ffd6e8 25%, #ffc0cb 50%, #ffb3d9 75%, #ff9a9e 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 154, 158, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
+        }
+
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-in;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .profile-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(255, 154, 158, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 30%, #ffc0cb 60%, #ffd6e8 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            min-width: 320px;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .profile-picture {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 50%, #ffc0cb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: floatProfile 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @keyframes floatProfile {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .profile-picture:hover {
+            transform: translateY(-10px) scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(255, 154, 158, 0.5);
+            animation: none;
+        }
+
+        .profile-picture::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 50%, #ffc0cb 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .profile-picture:hover::before {
+            opacity: 0.3;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0; }
+        }
+
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            animation: slideInDown 0.8s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .name:hover {
+            transform: scale(1.05);
+            text-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .nim {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 40px 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 50%, #ffc0cb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .section-title:hover {
+            transform: translateX(5px);
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 50%, #ffc0cb 100%);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 3px;
+        }
+
+        .info-item:hover {
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.1) 0%, rgba(255, 179, 217, 0.1) 100%);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.2);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            min-width: 120px;
+        }
+
+        .info-value {
+            color: #777;
+            flex: 1;
+        }
+
+        .about-text {
+            color: #777;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .about-text:hover {
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.1) 0%, rgba(255, 179, 217, 0.1) 100%);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 50%, #ffc0cb 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 5px 5px 5px 0;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.5);
+        }
+
+        .badge:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #ffb3d9 50%, #ffc0cb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-8px) scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 25px rgba(255, 154, 158, 0.5);
+            background: linear-gradient(135deg, #ff8a8e 0%, #ffa3d9 50%, #ffb0cb 100%);
+        }
+
+        .social-link:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .social-link:active {
+            transform: translateY(-5px) scale(0.95);
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                max-width: 600px;
+            }
+
+            .header {
+                width: 100%;
+                min-width: auto;
+                padding: 30px 20px;
+            }
+
+            .profile-picture {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+
+            .name {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .info-label {
+                margin-bottom: 5px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <img src="path/to/your-photo.jpg" alt="Haifa Neza Tama" class="profile-picture">
+            <h1 class="name">Haifa Neza Tama</h1>
+            <p class="nim">NIM: 2461316013</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">Informasi Pribadi</h2>
+                <div class="info-item">
+                    <span class="info-label">Nama Lengkap</span>
+                    <span class="info-value">Haifa Neza Tama</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">NIM</span>
+                    <span class="info-value">2461316013</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Umur</span>
+                    <span class="info-value">19 tahun</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Kampus</span>
+                    <span class="info-value">Politeknik Caltex Riau</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Semester</span>
+                    <span class="info-value">3</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status</span>
+                    <span class="info-value">
+                        <span class="badge">Mahasiswa</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Tentang Saya</h2>
+                <p class="about-text">
+                    Selamat datang di halaman profil saya. Saya adalah seorang mahasiswa yang sedang menempuh pendidikan 
+                    dan terus belajar untuk mengembangkan kemampuan serta pengetahuan di prodi bisnis digital politeknik caltex riau.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
